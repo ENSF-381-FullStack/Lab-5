@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lab5 - Exercise 1</title>
+</head>
+<body>
+    <input type="text" id="textInput" placeholder="Type Something Here...."/>
+    <label id="textLabel"></label>
+    <button id="redButton">Red</button>
+    <button id="blueButton">Blue</button>
+    <button id="greenButton">Green</button>
+    <button id="orangeButton">Orange</button>
+    <button id="purpleButton">Purple</button>
+
+
+</body>
+
+<script>
+        document.getElementById("textInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                const textInput = document.getElementById("textInput");
+                const textLabel = document.getElementById("textLabel");
+                textLabel.textContent = textInput.value;
+                textInput.value = "";
+            }
+        });
+
+        const colorButtons = {
+            "redButton": "red",
+            "blueButton": "blue",
+            "greenButton": "green",
+            "orangeButton": "orange",
+            "purpleButton": "purple"
+        };
+
+        Object.keys(colorButtons).forEach(buttonId => {
+            document.getElementById(buttonId).addEventListener("click", function() {
+                document.getElementById("textLabel").style.color = colorButtons[buttonId];
+            });
+        });
+    </script>
+</html>

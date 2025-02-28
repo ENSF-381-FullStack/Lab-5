@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lab5 - Exercise 3</title>
+</head>
+<body>
+    <input type="text" id="textInput" placeholder="Enter User ID..."/>
+    <label id="textLabel"></label>
+    <button id="redButton">Red</button>
+    <button id="blueButton">Blue</button>
+    <button id="greenButton">Green</button>
+    <button id="orangeButton">Orange</button>
+    <button id="purpleButton">Purple</button>
+</body>
+<script type="text/javascript">
+    const apiUrl = "https://67c20ad661d8935867e53fb0.mockapi.io/users_api"; // Replace with actual endpoint
+
+    async function retrieveData(userId) {
+        try {
+            const response = await fetch(apiUrl);
+            const users = await response.json();
+            console.log(users); // Display fetched data in console
+
+            const user = users.find(u => u.id === userId);
+            const label = document.getElementById("textLabel");
+
+            if (user) {
+                label.textContent = `ID: ${user.id}, Name: ${user.first_name}, Group: ${user.user_group}`;
+            } else {
+                label.textContent = "No users were found with the provided User ID.";
+            }
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    }
+
+    document.getElementById("textInput").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            const userId = this.value.trim();
+            if (userId) {
+                retrieveData(userId);
+                this.value = "";
+            }
+        }
+    });
+
+    function changeTextColor(color) {
+        document.getElementById("textLabel").style.color = color;
+    }
+
+    document.getElementById("redButton").addEventListener("click", () => changeTextColor("red"));
+    document.getElementById("blueButton").addEventListener("click", () => changeTextColor("blue"));
+    document.getElementById("greenButton").addEventListener("click", () => changeTextColor("green"));
+    document.getElementById("orangeButton").addEventListener("click", () => changeTextColor("orange"));
+    document.getElementById("purpleButton").addEventListener("click", () => changeTextColor("purple"));
+</script>
+</html>
